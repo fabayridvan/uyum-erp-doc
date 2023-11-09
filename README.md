@@ -119,7 +119,7 @@ namespace GNL
 Tablonun primary key alanını **[UyumPrimaryKey(0)]** attribute ile ve otomatik artan olduğunu belirtmek için **IsIdentity=true** kullanıyoruz. 
 
 Ana tablosundan değil de başka bir tablodan alan geliyor ise **Flags = ColumnFlags.None** attribute ile belirtilir. **TableAlias** ile hangi tablodan geldiği yazılır. **Alias** attribute’ü ile field alias verebiliriz. 
-**UyumIndex** attribute ile index tanımlayabiliriz. Bir index’i birden fazla alanda kullanacak iseniz, onlarada aynı index name’i veriniz. Index Unique olacak ise “IsUnique = true” kullanınız.
+**UyumIndex** attribute ile index tanımlayabiliriz. Bir index’i birden fazla alanda kullanacak iseniz, onlarada aynı index name’i veriniz. Index Unique olacak ise IsUnique = true kullanınız.
 İlçe objesini Collection’ı aşağıdaki gibi tanımlanmıştır.
 ```cs 
 using System;
@@ -153,13 +153,13 @@ namespace GNL
 	}
 }
 ```
-“UyumTable” attribute ile tablo adı belirtilir.Stored procedure isimleri belirtilir. 
-“UyumJoin” attribute ile ekrana veri gelecek ana tablo ile ilişkili joinler belirtilir. İçeriği Join tipi, tablo adı ve field adıdır.
-“DeleteAction” attribute joinde yazılır. Foreignkey kavramının object üzerinde yapmamızı sağlar. Bu örnekte GNLD_CITY (İl tablosu) silindiği zaman ilçe tablosunda kullanılıp kullanılmadığına bakara. Eğer kullandı ise hata fırlatır.
-
+**UyumTable** attribute ile tablo adı belirtilir. Stored procedure isimleri belirtilir. 
+**UyumJoin** attribute ile ekrana veri gelecek ana tablo ile ilişkili joinler belirtilir. İçeriği Join tipi, tablo adı ve field adıdır.
+**DeleteAction** attribute joinde yazılır. *Foreignkey* kavramının object üzerinde yapmamızı sağlar. Bu örnekte **GNLD_CITY** (İl tablosu) silindiği zaman ilçe tablosunda kullanılıp kullanılmadığına bakara. Eğer kullandı ise hata fırlatır.
 
 
 Object içerisinde detay kaydı var ise detay kaydı aşağıdaki gibi tanımlanır.
+```cs
 [Guid("b76855cf-c9b3-4f38-b62f-5cd3bc3248e4")]
 public class FinM : UyumObjectBase
 {
@@ -183,23 +183,25 @@ FinDCollection _FinDCollection = new FinDCollection();
 
        }
 }
-UyumDetailObject attribute’ün açıklaması şöyledir.
-MasterKey : Master’ın detay objesine bağlı olan property name’i.
-DetailKey : Detayı’ın master objesine bağlı olan property name’i.
-MasterProperty : Detayın detayında geçerlidir. Hangi detaya bağlı olduğunu gösteren propertyname’dir.
-SaveIgnore : Master kaydedilirken detayın altyapı tarafından kaydedilmesi engellenir.
-DeleteIgnore : Master silinirken detayı’ın altyapı tarafından otomatik silinmesi engellenir.
-IsAllLoad : Detayın detayında geçerlidir. Master yüklenirken tüm detay detay kayıtlarınında yüklenmesini sağlar. Aksi halde sadece detayın ilk kaydına ait olan detaylar yüklenir.
+```
+**UyumDetailObject** attribute’ün açıklaması şöyledir.
+
+*MasterKey* : Master’ın detay objesine bağlı olan property name’i.
+*DetailKey* : Detayı’ın master objesine bağlı olan property name’i.
+*MasterProperty* : Detayın detayında geçerlidir. Hangi detaya bağlı olduğunu gösteren propertyname’dir.
+*SaveIgnore* : Master kaydedilirken detayın altyapı tarafından kaydedilmesi engellenir.
+*DeleteIgnore* : Master silinirken detayı’ın altyapı tarafından otomatik silinmesi engellenir.
+*IsAllLoad* : Detayın detayında geçerlidir. Master yüklenirken tüm detay detay kayıtlarınında yüklenmesini sağlar. Aksi halde sadece detayın ilk kaydına ait olan detaylar yüklenir.
 
 Objenin içinde Insert, Update ve Delete metodları yazabilirsiniz. Objenin Insert, Update ve Delete methodlarını çağırdığınızda bu methodların içine düşer. Bu methodlarda yapmak istediğiniz diğer işlemleri yapabilirsiniz. Örneğin fatura kaydedilirken, fatura objesinin içerisinde finansa kayıt atabilirsiniz.
-Detay objelerinin değerlerini bu metodlar içerisinde okurken Modified alana dikkat ediniz. Modified alanı “sıfır” ve Id “sıfır” veya sıfrdan küçükse yeni kayıt, Modified alanı “bir” ise düzeltilmiş , “iki” ise bu kayıt ekrandan silinmiş olduğunu anlayabilirsiniz…
+Detay objelerinin değerlerini bu metodlar içerisinde okurken **Modified** alana dikkat ediniz. **Modified** alanı sıfır ve Id sıfır veya sıfrdan küçükse yeni kayıt, Modified alanı bir ise düzeltilmiş , iki ise bu kayıt ekrandan silinmiş olduğunu anlayabilirsiniz…
 
 
+##	XML VE İÇERİSİNDE KULLANILAN ATTRIBUTE’LERİN ANLAMI NEDİR?
 
-
-3)	XML VE İÇERİSİNDE KULLANILAN ATTRIBUTE’LERİN ANLAMI NEDİR?
 XML kolayca ekran tasarlamak için geliştirilen bir yapıdır. 
 Aşağıda örnek bir ilçe ekranının ekranı mevcuttur.
+```xml
 <root MainCode="GNL10351" Caption="İlçe Tanımı" MainObject="GNL.TownCollection,GNL ">
   <tabcontrol Visibility="True">
     <tabpage Caption="İlçe Tanımı">
@@ -239,162 +241,162 @@ Aşağıda örnek bir ilçe ekranının ekranı mevcuttur.
     </control>
   </hidden>
 </root>
+```
 
-
-Ekran tasarlanırken, öncelikle ekranda kaç tabcontrol kullanacak iseniz o kadar “tabcontrol” konur. En az bir tane olmak zorundadır. Tabcontrolun içerisine en az bir tane “section” olmak zorundadır. Section’ı tablo olarak düşünebilirsiniz. Kontrolleri bu tablonun içerisine koyacağız. Öncelikle bu tabloyu kaç kolona bölecek iseniz “ColumnCount” attibute ile bunu yazınız. Yazmazsanız varsayılan olarak 6’ya böler. “row” attribute ile section’ı satırlara ayırıyoruz. “cell” attribute ile bu satırları hücrelere ayırıyouz. En sonda da bu hücrelerin içine “control” lerimizi koyuyoruz.
+Ekran tasarlanırken, öncelikle ekranda kaç *tabcontrol* kullanacak iseniz o kadar *tabcontrol* konur. <u>En az bir tane olmak zorundadır</u>. Tabcontrolun içerisine <u>en az bir tane section</u> olmak zorundadır. *Section’ı* tablo olarak düşünebilirsiniz. Kontrolleri bu tablonun içerisine koyacağız. Öncelikle bu tabloyu kaç kolona bölecek iseniz ColumnCount attibute ile bunu yazınız. Yazmazsanız varsayılan olarak 6’ya böler. row attribute ile section’ı satırlara ayırıyoruz. cell attribute ile bu satırları hücrelere ayırıyouz. En sonda da bu hücrelerin içine control lerimizi koyuyoruz.
 Şimdi ayrıntılı olarak her bir attribute’u inceleyelim…
-I.	”root” : Ekran ile ilgili genel bilgiler tanımlanır. 
-	”MainCode” : Ekranın pagecodu yazılır. Zorunludur.
-	”Caption” : Ekranın başlığı tanımlanır. Zorunludur.
-	”MainObject” : Ekranın objesi tanımlanır. Object ile bind işlemi otomatik yapılacak ise zorunludur.
-	”CustomAttribute” : Body kısmına attribute eklemek için kullanılır.
-	”InVisibleCommandButton” : Ekranın üstündeki kaydet, kaydet yeni gibi butonları gizler. Gizlemek istenen butonlar noktalı virgül ile ayrılarak yazılır. Değerler  Save, SaveClose, SaveAndInsert, Cancel, IsUpdate, IsCopy dir.
-	”FillList” : İlk yüklemede gridin boş gelip gelmeyeceğini karar verir.
-	”UnLoad” : Sayfa kapanırken çalışacak javascript fonksiyon belirtilir.
-	”CallbackShowDialog” : Sayfada bir callback olursa otomatik diyalog çıkmasını sağlar.
+*	root : Ekran ile ilgili genel bilgiler tanımlanır. 
+  *	MainCode : Ekranın pagecodu yazılır. Zorunludur.
+  *	Caption : Ekranın başlığı tanımlanır. Zorunludur.
+  *	MainObject : Ekranın objesi tanımlanır. Object ile bind işlemi otomatik yapılacak ise zorunludur.
+  *	CustomAttribute : Body kısmına attribute eklemek için kullanılır.
+  *	InVisibleCommandButton : Ekranın üstündeki kaydet, kaydet yeni gibi butonları gizler. Gizlemek istenen butonlar noktalı virgül ile ayrılarak yazılır. Değerler  Save, SaveClose, SaveAndInsert, Cancel, IsUpdate, IsCopy dir.
+  *	FillList : İlk yüklemede gridin boş gelip gelmeyeceğini karar verir.
+  *	UnLoad : Sayfa kapanırken çalışacak javascript fonksiyon belirtilir.
+  *	CallbackShowDialog : Sayfada bir callback olursa otomatik diyalog çıkmasını sağlar.
 
-II.	”script” : Javascript fonksiyonu veya dosyası yüklemeye yarar.
-	”ScriptCode” : Javascript metodu direk olarak ekrana yazılabilir. Fakat bu tavsiye edilmez. Bunun yerine bir dosyaya yazıp bu dosya adının verilmesi gerekir.
-	”Load” : Yüklenecek javascript dosyaları noktalı virgül ile ayrılmış verilir.
+*	script : Javascript fonksiyonu veya dosyası yüklemeye yarar.
+  *	ScriptCode : Javascript metodu direk olarak ekrana yazılabilir. Fakat bu tavsiye edilmez. Bunun yerine bir dosyaya yazıp bu dosya adının verilmesi gerekir.
+  *	Load : Yüklenecek javascript dosyaları noktalı virgül ile ayrılmış verilir.
 
-III.	”PageLoadEvents” : Sayfa pageload’a olayında çalışacak metotlar verilir. 3 tipi vardır. AfterPageLoad, AfterControlsCreatePageLoad ve BeforeBindControlsPageLoad dır.  AfterPageLoad, sayfa tamamen yüklendikten sonra , AfterControlsCreatePageLoad, kontroller oluştrululduktan sonra, BeforeBindControlsPageLoad, koıntroller bind edilmeden önce çalışır.
-	”Type” : Collection’ın assembly name’i verilir. Zorunludur.
-	”MethodName” : Çalışacak metot adı yazılır. Zorunludur.
-	”StrPrm” : Parametre adı verilir. 
+*	PageLoadEvents : Sayfa pageload’a olayında çalışacak metotlar verilir. 3 tipi vardır. AfterPageLoad, AfterControlsCreatePageLoad ve BeforeBindControlsPageLoad dır.  AfterPageLoad, sayfa tamamen yüklendikten sonra , AfterControlsCreatePageLoad, kontroller oluştrululduktan sonra, BeforeBindControlsPageLoad, koıntroller bind edilmeden önce çalışır.
+	* Type : Collection’ın assembly name’i verilir. Zorunludur.
+	* MethodName : Çalışacak metot adı yazılır. Zorunludur.
+	* StrPrm : Parametre adı verilir. 
 
-IV.	”event” : Javascript’den c# kodu çağırmak için kullanılan bir yapıdır.
-	”eventID” : Event’ın adıdır. Zorunludur.
-	”jsFunctionName” : c# kodu çalıştıktan sonra geri dönen değer bu fonksiyona gönderilir. Zorunludur.
-	”jsErrorFunctionName” : Kod çalıştırılırken bir hata oluşur ise bu fonksiyona düşer.
-	”Type” : Çalıştırılacak objenin adıdır.
-	”MethodName” : Çalıştırılacak objenin metot adıdır.
+*	event : Javascript’den c# kodu çağırmak için kullanılan bir yapıdır.
+	* eventID : Event’ın adıdır. Zorunludur.
+	* jsFunctionName : c# kodu çalıştıktan sonra geri dönen değer bu fonksiyona gönderilir. Zorunludur.
+	* jsErrorFunctionName : Kod çalıştırılırken bir hata oluşur ise bu fonksiyona düşer.
+	* Type : Çalıştırılacak objenin adıdır.
+  * MethodName : Çalıştırılacak objenin metot adıdır.
 
-V.	”menuitem” : Popup menü eklemek için kullanılır.
-	”name” : Popup menünün adı. Zorunludur.
-	”text” : Popup menünün caption’ı. Zorunludur.
-	”ControlName” : Hangi kontrolde çıkacağını gösterir. ControlName “Form” olabilir veya gridlerden herhangi birinin adı olabilir. Zorunludur.
-	”jsFunctionName” : Çalışacak javascript fonksiyon adı. Zorunludur.
-	”VisibleProcessType” : Ekranın hangi modunda görüleceğini söyler. Processtype’lar (New,Update,Delete,Copy,Analyze,MainList,SelectionList,MultiSelectionList,SaveCard,History,OnlyDetail) dir. Noktalı virgül ile ayrılarak yazılır.
-	”OnPopUp” : Popup açılırken javascript fonksiyonu vermek için kullanılır.
-VI.	”LayoutUpButtons” : tabcontrol’ün üstünde section açmak için kullanılır.
-	”ColumnCount” : section’ın kaça bölüneceğini belirtilir. Daha sonra row ve cell eklenir.
+V.	menuitem : Popup menü eklemek için kullanılır.
+	name : Popup menünün adı. Zorunludur.
+	text : Popup menünün caption’ı. Zorunludur.
+	ControlName : Hangi kontrolde çıkacağını gösterir. ControlName Form olabilir veya gridlerden herhangi birinin adı olabilir. Zorunludur.
+	jsFunctionName : Çalışacak javascript fonksiyon adı. Zorunludur.
+	VisibleProcessType : Ekranın hangi modunda görüleceğini söyler. Processtype’lar (New,Update,Delete,Copy,Analyze,MainList,SelectionList,MultiSelectionList,SaveCard,History,OnlyDetail) dir. Noktalı virgül ile ayrılarak yazılır.
+	OnPopUp : Popup açılırken javascript fonksiyonu vermek için kullanılır.
+VI.	LayoutUpButtons : tabcontrol’ün üstünde section açmak için kullanılır.
+	ColumnCount : section’ın kaça bölüneceğini belirtilir. Daha sonra row ve cell eklenir.
 
-VII.	”LayoutDownButtons” : tabcontrol’ün altında section açmak için kullanılır.
-	”ColumnCount” : section’ın kaça bölüneceğini belirtilir. Daha sonra row ve cell eklenir.
+VII.	LayoutDownButtons : tabcontrol’ün altında section açmak için kullanılır.
+	ColumnCount : section’ın kaça bölüneceğini belirtilir. Daha sonra row ve cell eklenir.
 
-VIII.	”tabcontrol” : Ekrana bir tane tabcontrol ekler.
+VIII.	tabcontrol : Ekrana bir tane tabcontrol ekler.
 
-IX.	”tabpage” : Tabcontrol’un içerisine bir tane tabpage ekler.
-	”Caption” : Tabpage’in başlığı belirtilir.
-	”CaptionVisibility” : Başlığın gözükmeyeceğini belirtir.
-	”Id” : tabpage’e id vermek için kullanılır.
+IX.	tabpage : Tabcontrol’un içerisine bir tane tabpage ekler.
+	Caption : Tabpage’in başlığı belirtilir.
+	CaptionVisibility : Başlığın gözükmeyeceğini belirtir.
+	Id : tabpage’e id vermek için kullanılır.
 
-X.	”section” : Gruplama yapmak için ekrana bir tane tablo ekler.
-	”Visibility” : tablonun altına çizik çizmeyeceğine karar verir.
-	”Caption” : tablonun başlığını belirtilir.
-	”CaptionVisibility” : Başlığın gözükmeyeceğini belirtir.
-	”CaptionVisibility” : Başlığın gözükmeyeceğini belirtir.
-	”Id” : tabpage’e id vermek için kullanılır.
-	”HtmlStyle” : Tabloya style ekler. Noktali virgül ile ayrılır.
-	”CallbackPanelId” : tabloları bir panel içine koyar. Birden fazla gridi bu şekilde koyarak tek seferde performcallback yapabilirirz.
+X.	section : Gruplama yapmak için ekrana bir tane tablo ekler.
+	Visibility : tablonun altına çizik çizmeyeceğine karar verir.
+	Caption : tablonun başlığını belirtilir.
+	CaptionVisibility : Başlığın gözükmeyeceğini belirtir.
+	CaptionVisibility : Başlığın gözükmeyeceğini belirtir.
+	Id : tabpage’e id vermek için kullanılır.
+	HtmlStyle : Tabloya style ekler. Noktali virgül ile ayrılır.
+	CallbackPanelId : tabloları bir panel içine koyar. Birden fazla gridi bu şekilde koyarak tek seferde performcallback yapabilirirz.
 
-XI.	” row” : tabloya satır ekler.
-	”HtmlStyle” : Satıra style ekler. Noktali virgül ile ayrılır.
+XI.	 row : tabloya satır ekler.
+	HtmlStyle : Satıra style ekler. Noktali virgül ile ayrılır.
 
-XII.	”cell” : Satırlara hücre ekler.
-	”colspan” : Hücreleri yatayda birleştirmek için kullanılır.
-	”rowspan” : Hücreleri dikeyde birleştirmek için kullanılır.
-	”HtmlStyle” : Hücreye style ekler. Noktali virgül ile ayrılır.
-	”Id” : Hücreye id verir. 
+XII.	cell : Satırlara hücre ekler.
+	colspan : Hücreleri yatayda birleştirmek için kullanılır.
+	rowspan : Hücreleri dikeyde birleştirmek için kullanılır.
+	HtmlStyle : Hücreye style ekler. Noktali virgül ile ayrılır.
+	Id : Hücreye id verir. 
 
-XIII.	”control” : Kontrol eklemek için kullanılır.
-	”FieldName” : Kontrolun field adıdır. Objede olmak zorunda değildir.  Zorunludur.
-	”ControlType” Hangi tip kontrol create edileceğini belirtir. Kontrol tipleri TextEdit, SpinEdit, MemoEdit, ComboEdit, ListEdit, DateEdit, RadioButtonList, CheckEdit, ButtonEdit, Button, Label, HiddenEdit, GridEdit, UploadControl, ColorEdit, BinaryImage, TreeList, ProgressBar, CallbackPanel, HTMLEditor, UserControl, ChartControl, LinkEdit dir. Zorunludur.
-	”Caption” : Kontrolün başlığı.
-	”CaptionSize” : Kontrolün başlığının genişliği.
-	”ToolTip” :  Tooltip verilir.
-	”ControlRequired” : Zorunlu olduğunu belirtir.
-	”ControlEnabled” : Disable yapmak için kullanılır.
-	”ControlEditEnabled” : Düzelt modunda kontrolün değiştirilmemesini sağlar.
-	”ControlVisible” : Kontrolü gizlemeyi sağlar.
-	”CaptionVisible” : Başlığı gizlemeyi sağlar.
-	”Width” : Kontrol genişliğini belirtir.
-	”Height” : Kontrol yüksekliğini belirtir.
-	”MaxLength” : Maximum uzunluğu belirtir. Text alanda varsayılan 20’dir.
-	”DefaultValue” : Yeni modunda varsayılan değer verir.
-	”RegEx” : RegEx verir.
-	”ErrorText” : Hata olunca hatayı gösterir.
-	”ServerAttribute” : Kontrolün değerlerini reflection ile set etmeye yarar. Noktalı virgül ile ayrılır. 
-	”Focused” : Ekranda ilk önce hangi kontrole focus olacağını belirtir. Yazılmamış ise en üst kontrole focus olur.
-	”NotFirstNew” : Grid ilk açılınca yeni modunda açılmamasını sağlar.
-	”VisibleProcessTypes” : Ekranın hangi modunda kontrolün gözükeceğini belirtir.
-	”Password” : Kontrolün şifreli gözükmesini sağlar.
-	”CommandName” : Komut yetkisi yok ise kontrol gözükmez.
-	”DecimalPlaces” : Virgülden sonraki basamak sayısı belirlenir. Hazır kalıplar vardır. Kur=6, BirimFiyat=8,Tutar=2,Miktar=5,Sıfır=0,Oran=3,Pul=4 veya 1,2,3…20 yazabilirsiniz.
-	”Minus” : Eksi değere izin vermek için kullanılır.
-	”Editing” : ButtonEdit alanına yazı yazmayı engellemek için kullanılır.
-	”Incomplate” : ButtonEdit alana yazı yazdığınızda yazdığınız yazı kalır. Arka tarafta sorgu yapıp tamamlama yapmaz.
-	”DisplayFormat” : Format vermek için kullanılır.
-	”LoadURL” :  User kontrole dosya yüklemek için kullanılır.
-	”ReleatedProperty” : Bir kontrolün bağlı olduğu kontrolü belirler. O kontrol değiştiğinde bağlı kontrol silinir.
-	”GroupSummary” : Gridde gruplama yapmak için kullanılır. Sum, Min, Max, Count, Average, Custom, None değerleri alır.
-	”GroupSummaryLabel” : Gruplama yaptıktan sonra başlığı belirlenir.
-	”TabIndex” : TabIndex vermek için kullanılır.
-	”Mask” : Mask vermek için kullanılır. Devexpresin mask yapısı kullanılmıştır.
-	”Wrap” : MemoEdit’e Wrap özelliği ekler. 
+XIII.	control : Kontrol eklemek için kullanılır.
+	FieldName : Kontrolun field adıdır. Objede olmak zorunda değildir.  Zorunludur.
+	ControlType Hangi tip kontrol create edileceğini belirtir. Kontrol tipleri TextEdit, SpinEdit, MemoEdit, ComboEdit, ListEdit, DateEdit, RadioButtonList, CheckEdit, ButtonEdit, Button, Label, HiddenEdit, GridEdit, UploadControl, ColorEdit, BinaryImage, TreeList, ProgressBar, CallbackPanel, HTMLEditor, UserControl, ChartControl, LinkEdit dir. Zorunludur.
+	Caption : Kontrolün başlığı.
+	CaptionSize : Kontrolün başlığının genişliği.
+	ToolTip :  Tooltip verilir.
+	ControlRequired : Zorunlu olduğunu belirtir.
+	ControlEnabled : Disable yapmak için kullanılır.
+	ControlEditEnabled : Düzelt modunda kontrolün değiştirilmemesini sağlar.
+	ControlVisible : Kontrolü gizlemeyi sağlar.
+	CaptionVisible : Başlığı gizlemeyi sağlar.
+	Width : Kontrol genişliğini belirtir.
+	Height : Kontrol yüksekliğini belirtir.
+	MaxLength : Maximum uzunluğu belirtir. Text alanda varsayılan 20’dir.
+	DefaultValue : Yeni modunda varsayılan değer verir.
+	RegEx : RegEx verir.
+	ErrorText : Hata olunca hatayı gösterir.
+	ServerAttribute : Kontrolün değerlerini reflection ile set etmeye yarar. Noktalı virgül ile ayrılır. 
+	Focused : Ekranda ilk önce hangi kontrole focus olacağını belirtir. Yazılmamış ise en üst kontrole focus olur.
+	NotFirstNew : Grid ilk açılınca yeni modunda açılmamasını sağlar.
+	VisibleProcessTypes : Ekranın hangi modunda kontrolün gözükeceğini belirtir.
+	Password : Kontrolün şifreli gözükmesini sağlar.
+	CommandName : Komut yetkisi yok ise kontrol gözükmez.
+	DecimalPlaces : Virgülden sonraki basamak sayısı belirlenir. Hazır kalıplar vardır. Kur=6, BirimFiyat=8,Tutar=2,Miktar=5,Sıfır=0,Oran=3,Pul=4 veya 1,2,3…20 yazabilirsiniz.
+	Minus : Eksi değere izin vermek için kullanılır.
+	Editing : ButtonEdit alanına yazı yazmayı engellemek için kullanılır.
+	Incomplate : ButtonEdit alana yazı yazdığınızda yazdığınız yazı kalır. Arka tarafta sorgu yapıp tamamlama yapmaz.
+	DisplayFormat : Format vermek için kullanılır.
+	LoadURL :  User kontrole dosya yüklemek için kullanılır.
+	ReleatedProperty : Bir kontrolün bağlı olduğu kontrolü belirler. O kontrol değiştiğinde bağlı kontrol silinir.
+	GroupSummary : Gridde gruplama yapmak için kullanılır. Sum, Min, Max, Count, Average, Custom, None değerleri alır.
+	GroupSummaryLabel : Gruplama yaptıktan sonra başlığı belirlenir.
+	TabIndex : TabIndex vermek için kullanılır.
+	Mask : Mask vermek için kullanılır. Devexpresin mask yapısı kullanılmıştır.
+	Wrap : MemoEdit’e Wrap özelliği ekler. 
 
-XIV.	”DataSource” : Kontrole datasource eklemek için kullanılır. Aşağıdaki kontrollerin datasource’u vardır.
+XIV.	DataSource : Kontrole datasource eklemek için kullanılır. Aşağıdaki kontrollerin datasource’u vardır.
 
 	ComboEdit, ListEdit, RadioButtonList
-•	”SourceType” : Değerler Enum, TextAndValue, ObjectCollection olabilir. Zorunludur. 
-•	”Source” : Enum için enum değer, TextAndValue için boş, ObjectCollection için collection name olmalıdır. Zorunludur.
-•	”Filter” :  ObjectCollection için filtrelemede kullanılır.
-•	”FilterValues” :  ObjectCollection için filtrelemede kullanılır.
-•	”OrderByProperty” : Sıralama için kullanılır.
-•	”TextProperty” : ObjectCollection için combo’da gözükecek text property’dir.
-•	”ValueProperty” : ObjectCollection için combo’da gözükecek value property’dir.
-•	”RelatedProperty” : Burada bağlı olan başka combobox ve listbox’ın fieldname’i yazılır. Bağlı combo değiştiği zaman bu combo tetiklenir.
-•	”EnumValues” : SourceType enum seçildiği zaman. EnumValues’de hangi değerler yazıldı ise sadece onlar gösterilir. Boş geçilirse tüm değerler gösterilir. Değerler integer ve araya noktalı virgül ile yazılır.
-•	”Text” : SourceType TextAndValue seçildiği zaman comboya yazılacak text değerler noktalı virgül ile yazılır.
-•	”Value” : SourceType TextAndValue seçildiği zaman comboya yazılacak value  değerler noktalı virgül ile yazılır.
+•	SourceType : Değerler Enum, TextAndValue, ObjectCollection olabilir. Zorunludur. 
+•	Source : Enum için enum değer, TextAndValue için boş, ObjectCollection için collection name olmalıdır. Zorunludur.
+•	Filter :  ObjectCollection için filtrelemede kullanılır.
+•	FilterValues :  ObjectCollection için filtrelemede kullanılır.
+•	OrderByProperty : Sıralama için kullanılır.
+•	TextProperty : ObjectCollection için combo’da gözükecek text property’dir.
+•	ValueProperty : ObjectCollection için combo’da gözükecek value property’dir.
+•	RelatedProperty : Burada bağlı olan başka combobox ve listbox’ın fieldname’i yazılır. Bağlı combo değiştiği zaman bu combo tetiklenir.
+•	EnumValues : SourceType enum seçildiği zaman. EnumValues’de hangi değerler yazıldı ise sadece onlar gösterilir. Boş geçilirse tüm değerler gösterilir. Değerler integer ve araya noktalı virgül ile yazılır.
+•	Text : SourceType TextAndValue seçildiği zaman comboya yazılacak text değerler noktalı virgül ile yazılır.
+•	Value : SourceType TextAndValue seçildiği zaman comboya yazılacak value  değerler noktalı virgül ile yazılır.
 
 	ButtonEdit
-•	”SourceType” : Değerler Command olabilir. Zorunludur.  
-•	”Source” : Komut adı olmalıdır. Zorunludur.
-•	”SourceNumber” : Birden fazla datasource bağlandığı zaman “00” dan başlayarak numara verilir.
-•	”SourceKeyValue” : Birden fazla datasource bağlandığı zaman hangi datasource kullanacağını RelatedProperty deki controlun değerini okuyarak, burda yazan değerle karşılaştırarak karar verir.
-•	”Filter” :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-•	”FilterValues” :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-•	”OrderByProperty” : Sıralama için kullanılır.
-•	”ReturnProperties” : Açılan object’deki geri dönecek property’ler noktalı virgül ile yazılır.
-•	”ReturnedProperties” : Açılan object’deki geri dönecek property’ler hangi controllere set edilecek ise noktalı virgül ile yazılır.
-•	”ListPropertyName” : 1 ise tek seçim 2 ise çoklu seçim ekranı açar.
-•	”CustomOpenJs” :Ekran açılmadan önce çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
-•	”CustomReturnJs” :Seçim yapıldıktan sonra çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
-•	”RelatedProperty” : Birden fazla datasource verileceği zaman datasource’un bağlı olduğu kontrolün adı yazılır. 
+•	SourceType : Değerler Command olabilir. Zorunludur.  
+•	Source : Komut adı olmalıdır. Zorunludur.
+•	SourceNumber : Birden fazla datasource bağlandığı zaman 00 dan başlayarak numara verilir.
+•	SourceKeyValue : Birden fazla datasource bağlandığı zaman hangi datasource kullanacağını RelatedProperty deki controlun değerini okuyarak, burda yazan değerle karşılaştırarak karar verir.
+•	Filter :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+•	FilterValues :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+•	OrderByProperty : Sıralama için kullanılır.
+•	ReturnProperties : Açılan object’deki geri dönecek property’ler noktalı virgül ile yazılır.
+•	ReturnedProperties : Açılan object’deki geri dönecek property’ler hangi controllere set edilecek ise noktalı virgül ile yazılır.
+•	ListPropertyName : 1 ise tek seçim 2 ise çoklu seçim ekranı açar.
+•	CustomOpenJs :Ekran açılmadan önce çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
+•	CustomReturnJs :Seçim yapıldıktan sonra çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
+•	RelatedProperty : Birden fazla datasource verileceği zaman datasource’un bağlı olduğu kontrolün adı yazılır. 
 •	
 
 	GridEdit
-•	”SourceType” : “Objectcollection” sabiti olmalıdır.
-•	”Source” : Objectcollection adı olmalıdır.
-•	”Filter” :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-•	”FilterValues” :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-•	”CloseDetailCallback” : Seçilen satır değiştiği zaman bu gride bağlı detayların callback’ı çağrılmaz.
-•	”CloseAutoNew” : Grid otomatik yeni modunda açılmamasını sağlar.
-•	”CopyDetailGrid” : Grid copy yapıldığı zaman buna bağlı hangi gridlerinden kopyalanması isteniyor ise arada noktalı virgül koyularak grid adları yazılır.
-•	”IgnoreUpdateProperty” : Grid update edilince bu property’ler update edilmez. Noktalı virgül ile yazılırlar.
-•	”FirstExcelColumnList” : Gridün üzerinde excelden yapıştır yapıldığı zaman hangi alanların önce işlem görmesini istiyorsanız. Bu property’ler noktalı virgül ile ayrılarak yazılır.
+•	SourceType : Objectcollection sabiti olmalıdır.
+•	Source : Objectcollection adı olmalıdır.
+•	Filter :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+•	FilterValues :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+•	CloseDetailCallback : Seçilen satır değiştiği zaman bu gride bağlı detayların callback’ı çağrılmaz.
+•	CloseAutoNew : Grid otomatik yeni modunda açılmamasını sağlar.
+•	CopyDetailGrid : Grid copy yapıldığı zaman buna bağlı hangi gridlerinden kopyalanması isteniyor ise arada noktalı virgül koyularak grid adları yazılır.
+•	IgnoreUpdateProperty : Grid update edilince bu property’ler update edilmez. Noktalı virgül ile yazılırlar.
+•	FirstExcelColumnList : Gridün üzerinde excelden yapıştır yapıldığı zaman hangi alanların önce işlem görmesini istiyorsanız. Bu property’ler noktalı virgül ile ayrılarak yazılır.
  
 	ChartControl
-•	”View” : Değerler devexpress’in view tipleridir.  
+•	View : Değerler devexpress’in view tipleridir.  
 
-XV.	”ClientSideEvents” : Kontrole client side event ekleme yapmak için kullanılır. Devexpress’in eventları kullanılır. Client Side eventları görmek için devexpress’in help’inde arattırma yapmak için aspx’den sonra client yazınız. Örnek AspxClientTextBox gibi…. 
+XV.	ClientSideEvents : Kontrole client side event ekleme yapmak için kullanılır. Devexpress’in eventları kullanılır. Client Side eventları görmek için devexpress’in help’inde arattırma yapmak için aspx’den sonra client yazınız. Örnek AspxClientTextBox gibi…. 
 En çok kullanılan eventlar aşağıdadır.
-	”ValueChanged”: Kontrolun değeri değiştiği zaman çalışır.
-	”EndCallback”: Gridde callback işlemi tamamlanınca çalışır.
-	”Click”: Button’a clickleme yapınca çalışır. 
+	ValueChanged: Kontrolun değeri değiştiği zaman çalışır.
+	EndCallback: Gridde callback işlemi tamamlanınca çalışır.
+	Click: Button’a clickleme yapınca çalışır. 
 
-XVI.	”hidden” : Gizli kontrol “hiddenedit” eklemek için kullanılır.
+XVI.	hidden : Gizli kontrol hiddenedit eklemek için kullanılır.
 
 
 
@@ -426,7 +428,7 @@ Bu ekranlara service ekranları da denmektedir. XMLCard.aspx dosyası ile yükle
 
 6)	LİSTE EKRANINDA KOLON SIRASINI, SIRALAMAYI NASIL VEREBİRİM?
 
-APPD_FILTER tablosuna object_type alanına collection’ın assembly name’i yazılır. ListBrowsableString alanına propertyname’ler araya virgül bırakarak yazılır. Eğer özellikle uzunluk verilecek ise “:” yazılarak uzunluk verilir. Virgülden sonra gösterilecek basamak sayısını belirtmek için ise tekrar “:” yazıldıktan sonra basamak sayısı yazılır.
+APPD_FILTER tablosuna object_type alanına collection’ın assembly name’i yazılır. ListBrowsableString alanına propertyname’ler araya virgül bırakarak yazılır. Eğer özellikle uzunluk verilecek ise : yazılarak uzunluk verilir. Virgülden sonra gösterilecek basamak sayısını belirtmek için ise tekrar : yazıldıktan sonra basamak sayısı yazılır.
 
 Sıralama için Order_by filedname’ine sıralanacak alanların propertyname’ leri  araya virgül konarak yazılır.
  
@@ -459,32 +461,32 @@ Aşağıdaki örnek mail kontrolü yapmaktadır.
 <control FieldName = "Email" ControlType = "TextEdit" Caption = "Email" ControlRequired = "true" ControlEnabled = "true" ControlVisible = "True" ControlSingleLine = "true" RegEx="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ErrorText="Hatalı Giriş Fotmatı"> 
 Regular Expression’larda Kullanılan Özel Karakterler ve Etkileri
 Regular expression desenleri tanımlamada kullanılan özel karakterleri örnekleri ile anlatırsak sanırım regular expressionlar daha tanıdı ve kolay gelebilir.
-a.)  “.” Karakteri
+a.)  . Karakteri
 Tek bir karakteri temsil eder(yeni satır karakteri hariç).
-“CSharp.edir” şeklindeki bir desen CSharpnedir, CSharpNedir, CSharpSedir, CSharp3edir gibi stringleri döndürebilir.
-b.)  “[]” Karakterleri
+CSharp.edir şeklindeki bir desen CSharpnedir, CSharpNedir, CSharpSedir, CSharp3edir gibi stringleri döndürebilir.
+b.)  [] Karakterleri
 Bir arrayi yada aralığı temsil eder.
-“CSharp[SNY]edir” deseni, CSharpSedir, CSharpNedir ve CSharpYedir stringlerini döndürür.
-“CSharp[a-z]edir” şeklindeki kullanım aralık belirtmeye yarar.
-“CSharp[0-9]edir” şeklindeki kılanlım ise sayısal aralık belirtmeye yarar.
-c.)  “?” Karakteri
+CSharp[SNY]edir deseni, CSharpSedir, CSharpNedir ve CSharpYedir stringlerini döndürür.
+CSharp[a-z]edir şeklindeki kullanım aralık belirtmeye yarar.
+CSharp[0-9]edir şeklindeki kılanlım ise sayısal aralık belirtmeye yarar.
+c.)  ? Karakteri
 Kendinden önceki karakterin stringte olması yada olmamasını sağlar.
-“CSharpn?edir” deseni CSharpedir yada CSharpnedir döndürür.
-d.)  “\” Karakteri
+CSharpn?edir deseni CSharpedir yada CSharpnedir döndürür.
+d.)  \ Karakteri
 Kendinden sonraki özel karakterin stringe dahil edilmesini sağlar.
-“CSharpnedir\?” deseni CSharpnedir? Stringini döndürür. (Eğer “\” karakterini kullanmamış olsaydık CSharpnedi yada CSharpnedir dönerdi.)
-e.)  “*” Karakteri
+CSharpnedir\? deseni CSharpnedir? Stringini döndürür. (Eğer \ karakterini kullanmamış olsaydık CSharpnedi yada CSharpnedir dönerdi.)
+e.)  * Karakteri
 Kendinden önceki karakterin yada stringin hiç olmaması yada istediği sayıda olmasını sağlar.
-“CSharpnedir*” deseni, CSharpnedi, CSharpnedir, CSharpnedirr, CSharpnedirrr, ... döndürür. “CSharp(nedir)*” deseni ise CSharp, CSharpnedir, CSharpnedirnedir, ... döndürür.
-f.)  “{}” Karakterleri
+CSharpnedir* deseni, CSharpnedi, CSharpnedir, CSharpnedirr, CSharpnedirrr, ... döndürür. CSharp(nedir)* deseni ise CSharp, CSharpnedir, CSharpnedirnedir, ... döndürür.
+f.)  {} Karakterleri
 Kendinden önce gelen karakterin belirtilen sayıda tekrar etmesini sağlar.
-“C{4}Sharpnedir” deseni, CCCCSharpnedir stringini döndürür.
-g.)  “^” Karakteri
+C{4}Sharpnedir deseni, CCCCSharpnedir stringini döndürür.
+g.)  ^ Karakteri
 Satır başını ifade eder.
-“^CSharpnedir” deseni, satır başında “CSharpnedir” stringi varsa bunu döndürür.
-h.)  “$” Karakteri
+^CSharpnedir deseni, satır başında CSharpnedir stringi varsa bunu döndürür.
+h.)  $ Karakteri
 Satır sonunu ifade eder.
-“CSharpnedir$” deseni, satır sonunda “CSharpnedir” stringi varsa bunu döndürür.
+CSharpnedir$ deseni, satır sonunda CSharpnedir stringi varsa bunu döndürür.
 
 
 
@@ -689,7 +691,7 @@ Button Editlere Birden Fazla DataSource Vererek Başka Bir Alandan Gelen Tipe G�
 
 Fakat Gridlerde İlişkili Olacak Alan Sadece Grid Üzerinde ki Bir Alan Olabiliyordu . Yeni Özellik Sayesinde Ekrandaki Bir Master alan Üzerinden Data Source Seçimi Yapabiliriz. Tek Yapmamız Gereken RelatedProperty Tagına Veri Girerken Veri Alacağımız Alan Master üzerindeyse M(PropertyName) Şeklinde Girmek Olacaktır ..
 SourceKeyValue değerine bakarak hangi datasource’un kullanılacağını belirler
-SourceNumber, “00” ile başlar “01”,”02” … diye her datasource için artar.
+SourceNumber, 00 ile başlar 01,02 … diye her datasource için artar.
 
 Örnek;
   <DataSource SourceType="ObjectCollection" SourceNumber ="00" Source="FIN.TraTypeCollection, FIN, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" SourceKeyValue ="3"  OrderByProperty="TraTypeCode" Filter="And;SourceApp=@SourceApp;IsBank=@IsBank" FilterValues="@SourceApp=10;@IsBank=1" ReturnProperties = "CardType;Id;PlusMinus;Description;TraTypeCode" ReturnedProperties = "CardType;TraTypeId;PlusMinus;Description;TraTypeCode" RelatedProperty="M(CardType)" ListPropertyName="TraTypeCode" ></DataSource>
@@ -763,7 +765,7 @@ Objedeki alanın property’si byte[] olmalıdır..
   BindingList< FinD > list =  Session[typeof(FinD).GetHashCode().ToString()+'.'+(page as BasePage).CurrentIdentity]  
 
 25)	EKRANA UPDATEPANEL KONTROLU NASIL EKLERİM ?
-XML ekranlarında UpdatePanel kontrolu create edebilirsiniz… Bunun için  ControlType=”CallbackPanel” attribute’u yazmanız yeterli olacaktır. Javascript ile kontrolun PerformCallback’ini çağırarak ve c# tarafında callback eventini yakalayarak runtime da ekrana yeni kontroller create edebilirsiniz…
+XML ekranlarında UpdatePanel kontrolu create edebilirsiniz… Bunun için  ControlType=CallbackPanel attribute’u yazmanız yeterli olacaktır. Javascript ile kontrolun PerformCallback’ini çağırarak ve c# tarafında callback eventini yakalayarak runtime da ekrana yeni kontroller create edebilirsiniz…
       
 Örnek :
        <control FieldName="RegisterAddressCallback" ControlType="CallbackPanel">
@@ -836,31 +838,31 @@ Artık Kart Ekranlarında ki Detay Gridlerinin İlk Yüklenmesi Esnasında Filtr
  Örnekte Görüldüğü Üzere Filtreleyeceğimiz Detay Gridinin DataSource Tagına Filter ve FilterValues Özelliklerini Ekleyerek İstediğiniz Filtre İşlemini Yapabilirsiniz. Not: Filtre İşlemi Sadece Detaya Bağlı Collection Üzerinde ki Property ler vasıtasıyla yapılabilir.
 31)	FILTRE VE FILTER VALUES NASIL KULLANILIR?
 Eşitlik;
-Filter="And;CityId=@CityId;TownName=@TownName" FilterValues="@CityId==GetControlValue(CityId);@TownName==Kumru”
+Filter="And;CityId=@CityId;TownName=@TownName" FilterValues="@CityId==GetControlValue(CityId);@TownName==Kumru
 Eşitsizlik
-Filter="And;CityId=@CityId;TownName=@TownName" FilterValues="@CityId!=GetControlValue(CityId);@TownName!=Kumru”
+Filter="And;CityId=@CityId;TownName=@TownName" FilterValues="@CityId!=GetControlValue(CityId);@TownName!=Kumru
 Büyük
-Filter="CityId=@CityId " FilterValues="@CityId>>GetControlValue(CityId)”
+Filter="CityId=@CityId " FilterValues="@CityId>>GetControlValue(CityId)
 Küçük
-Filter="CityId=@CityId " FilterValues="@CityId<<GetControlValue(CityId)”
+Filter="CityId=@CityId " FilterValues="@CityId<<GetControlValue(CityId)
 Büyük Eşit
-Filter="CityId=@CityId " FilterValues="@CityId>=GetControlValue(CityId)”
+Filter="CityId=@CityId " FilterValues="@CityId>=GetControlValue(CityId)
 Küçük Eşit
-Filter="CityId=@CityId " FilterValues="@CityId<=GetControlValue(CityId)”
+Filter="CityId=@CityId " FilterValues="@CityId<=GetControlValue(CityId)
 StartsWith
-Filter="TownName=@TownName" FilterValues="TownName%=Kum”
+Filter="TownName=@TownName" FilterValues="TownName%=Kum
 EndsWith
-Filter="TownName=@TownName" FilterValues="TownName%%umr”
+Filter="TownName=@TownName" FilterValues="TownName%%umr
 Contains
-Filter="TownName=@TownName" FilterValues="TownName=%mru”
+Filter="TownName=@TownName" FilterValues="TownName=%mru
 Between
-Filter="And;CityId=@CityId; CityId=@CityId2 " FilterValues="@CityId!>>50;@ CityId2<<200”
+Filter="And;CityId=@CityId; CityId=@CityId2 " FilterValues="@CityId!>>50;@ CityId2<<200
 
 NotBetween
-Filter="And;CityId=@CityId; CityId=@CityId2 " FilterValues="@CityId!<<50;@ CityId2>>200”
+Filter="And;CityId=@CityId; CityId=@CityId2 " FilterValues="@CityId!<<50;@ CityId2>>200
 
 In
-Filter="TownName=@TownName" FilterValues="TownName**Çayeli,Pazar”
+Filter="TownName=@TownName" FilterValues="TownName**Çayeli,Pazar
 32)	SERVER SİDE TARAFINDA BİR KONTROLÜN DEĞERİNİ NASIL ALIRIM?
 Object countryValue = GlobalObj.gc.GetControlValue(Page,'Country');
 
@@ -964,12 +966,12 @@ Liste sayfalarımızda gerekli olan Filterları eklemek için uygulanacak adıml
 
 </root>
 Yukarıda örneği verilen Filter Xml’inde tasarım tamamen kullanıcıya bırakılmıştır.Ancak aşağıdaki adımlara dikkat edilmesi şarttır.
-•	“Operation_” ismiyle başlayan ComboEdit mutlaka her satırda bulunmalıdır.Bu ComboEdit’in DataSource’ı GNL.Operator’den gelmesi
-Şarttır.Ayrıca Fieldname verilirken mutlaka “Operation_” isminden sonra ilişkili olacağı property’inin properyname’i verilmelidir.
+•	Operation_ ismiyle başlayan ComboEdit mutlaka her satırda bulunmalıdır.Bu ComboEdit’in DataSource’ı GNL.Operator’den gelmesi
+Şarttır.Ayrıca Fieldname verilirken mutlaka Operation_ isminden sonra ilişkili olacağı property’inin properyname’i verilmelidir.
 Örnek(Operation_DocNo DocNo aramasında ilişkilendirilecek olan combo’nun adıdır.)
 •	Her Arama kriteri ControlType’ı ne olursa olsun mutlaka iki ayrı control(Aralarında kriterinde kullanılmak üzre) olarak eklenmelidir.
 Örnek DocNo_1  ve DocNo_2 şeklinde iki ayrı component olarak sisteme eklenmiştir.Dikkat edilcek husus propertyName’inden sonra 
-İlki için “_1” ikincisi için “_2” eklerini FieldName’lere ilave etmektir.Tüm ekranlarda kullandığımız bütün kontrol tiplerini ve de 
+İlki için _1 ikincisi için _2 eklerini FieldName’lere ilave etmektir.Tüm ekranlarda kullandığımız bütün kontrol tiplerini ve de 
 Özelliklerini aynen kullanabilirsiniz.
 •	Sadece bir tane eklemek üzre btnSearch butonu aynen (istenilen yere) eklenmelidir.
 •	Tüm Arama kriterlerinde  aşağıdaki taglar default olarak(kendi objemize göre ) filter’a eklenmelidir.
@@ -983,7 +985,7 @@ Yukarıda örneği verilen Filter Xml’inde tasarım tamamen kullanıcıya bır
 
 
 
-3)APPD_FILTER tablosunda objemizin bulunduğu satırın “FILTER_STRING” kolonuna kullanacağımız FilterXml’in yolu verilir. (Ör:INV\Filter\WayBilFilter.xml)
+3)APPD_FILTER tablosunda objemizin bulunduğu satırın FILTER_STRING kolonuna kullanacağımız FilterXml’in yolu verilir. (Ör:INV\Filter\WayBilFilter.xml)
 
 37)	MAİNLİST’E MASTER DETAY EKRAN NASIL YAPILIR?
 APPD_COMMAND tablosunda Show komutun bulunduğu satırdaki ExtraParameters alanına aşağıda gibi değerler eklenir.
@@ -1041,7 +1043,7 @@ public override bool Insert(Uyum.Data.IDataComponent data)
 }
 41)	EKRANDAN SERVER SIDE KODU NASIL ÇALIŞTIRABİLİRİM (CALLCSHARPCODE)?
 
-Eğer c# kodu çağrılacak ise bir tane event tanımlamak gerekmektedir. Event’in “eventID” attribute’une bir tane id verilir. “type” attributune çağıracağınız metodun bağlı olduğu classın type bilgisi , “methodName” kısmına ise çağrılacak method adı yazılır. “jsFunctionName” attribute’une kod çalıştıktan sonra geri dönecek javascri,pt fonksiyonu belirtilir.
+Eğer c# kodu çağrılacak ise bir tane event tanımlamak gerekmektedir. Event’in eventID attribute’une bir tane id verilir. type attributune çağıracağınız metodun bağlı olduğu classın type bilgisi , methodName kısmına ise çağrılacak method adı yazılır. jsFunctionName attribute’une kod çalıştıktan sonra geri dönecek javascri,pt fonksiyonu belirtilir.
 Burada çağırırken CallCSharpCode fonksiyonumuzu çağıracaksınız.Bu fonksiyon 3 tane parametre alır.Birincisi bizim size yolladımız ve geri beklediğimiz parametre(Key) , ikincisi işlem type ( 0 = menu item , 1 = button) ,
 Üçüncüsü ise isterseniz c# tarafına göndermek istediğiniz parametreler.Bunları string olarak birleştirip ve birleştirikende aralarına ‘|’ ekleyerek ( tüm alt yapıda bu kullanılıyor ) bize yollayabilirsiniz. C# tarafında çağrılacak metoda bir sizden gelen parametre ,ikinci olarakta page’yi yolluyoruz.
 Birincisi ( parametre) bir string : Key + ‘|’ + ID (ve varsa siz yolladıysanız) + ‘|’ + [sizden gelen prms].Bunu c# tarafında parse edip kullanabilirsiniz.
@@ -1130,8 +1132,8 @@ aşağı ok tuşuna bastığınızda gösterilecek alanlar şu kurallara göre �
                     </DataSource>
                   </control>
 
-ReturnedProperties ’ler “DocTraId;DocTraCode”
-AppdFielter’da ListBrowsableString “CoCode,DocTraCode,Description,Ispassive,SourceApp,InventoryStatus,IsDocDifferentCur,Ispassive” olsun ekranda
+ReturnedProperties ’ler DocTraId;DocTraCode
+AppdFielter’da ListBrowsableString CoCode,DocTraCode,Description,Ispassive,SourceApp,InventoryStatus,IsDocDifferentCur,Ispassive olsun ekranda
 DocTraCode ve Description alanı çıkar…
 
 43)	BİR KOŞULA GÖRE ZORUNLULUK NASIL YAPABİLİRİM?

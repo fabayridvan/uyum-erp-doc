@@ -8,7 +8,7 @@ Uyum Framework’te veritabanı işlemleri objeler üzerinden yapılmaktadır.  
 Objeler ekranın datasource’udurlar. Veritabanından çekilen verileri tutmaya ve aynı zamanda bu verileri, objenin ana tablosuna yazmasına sağlar.  Tablodaki alanları özellikleri (tipi, uzunluğu, açıklaması, index gibi) object’te belirlenir. Collection’da tablo adı ve Join bilgileri yer almaktadır. 
 
 Örnek bir İlçe objesi aşağıda yer almaktadır.
-
+```cs 
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -114,12 +114,14 @@ namespace GNL
         }
 	}
 }
+```
 
-Tablonun primary key alanını [UyumPrimaryKey(0)] attribute ile ve otomatik artan olduğunu belirtmek için “IsIdentity=true” kullanıyoruz. 
+Tablonun primary key alanını **[UyumPrimaryKey(0)]** attribute ile ve otomatik artan olduğunu belirtmek için **IsIdentity=true** kullanıyoruz. 
 
-Ana tablosundan değil de başka bir tablodan alan geliyor ise “Flags = ColumnFlags.None” attribute ile belirtilir. TableAlias ile hangi tablodan geldiği yazılır. “Alias” attribute’ü ile field alias verebiliriz. 
-UyumIndex attribute ile index tanımlayabiliriz. Bir index’i birden fazla alanda kullanacak iseniz, onlarada aynı index name’i veriniz. Index Unique olacak ise “IsUnique = true” kullanınız.
+Ana tablosundan değil de başka bir tablodan alan geliyor ise **Flags = ColumnFlags.None** attribute ile belirtilir. **TableAlias** ile hangi tablodan geldiği yazılır. **Alias** attribute’ü ile field alias verebiliriz. 
+**UyumIndex** attribute ile index tanımlayabiliriz. Bir index’i birden fazla alanda kullanacak iseniz, onlarada aynı index name’i veriniz. Index Unique olacak ise “IsUnique = true” kullanınız.
 İlçe objesini Collection’ı aşağıdaki gibi tanımlanmıştır.
+```cs 
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -150,6 +152,7 @@ namespace GNL
 		}
 	}
 }
+```
 “UyumTable” attribute ile tablo adı belirtilir.Stored procedure isimleri belirtilir. 
 “UyumJoin” attribute ile ekrana veri gelecek ana tablo ile ilişkili joinler belirtilir. İçeriği Join tipi, tablo adı ve field adıdır.
 “DeleteAction” attribute joinde yazılır. Foreignkey kavramının object üzerinde yapmamızı sağlar. Bu örnekte GNLD_CITY (İl tablosu) silindiği zaman ilçe tablosunda kullanılıp kullanılmadığına bakara. Eğer kullandı ise hata fırlatır.

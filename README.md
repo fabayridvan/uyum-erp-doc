@@ -347,48 +347,48 @@ Ekran tasarlanırken, öncelikle ekranda kaç *tabcontrol* kullanacak iseniz o k
 
 14.	DataSource : Kontrole datasource eklemek için kullanılır. Aşağıdaki kontrollerin datasource’u vardır.
 
-    *	ComboEdit, ListEdit, RadioButtonList
-      -	SourceType : Değerler Enum, TextAndValue, ObjectCollection olabilir. Zorunludur. 
-      -	Source : Enum için enum değer, TextAndValue için boş, ObjectCollection için collection name olmalıdır. Zorunludur.
-      -	Filter :  ObjectCollection için filtrelemede kullanılır.
-      -	FilterValues :  ObjectCollection için filtrelemede kullanılır.
-      -	OrderByProperty : Sıralama için kullanılır.
-      -	TextProperty : ObjectCollection için combo’da gözükecek text property’dir.
-      -	ValueProperty : ObjectCollection için combo’da gözükecek value property’dir.
-      -	RelatedProperty : Burada bağlı olan başka combobox ve listbox’ın fieldname’i yazılır. Bağlı combo değiştiği zaman bu combo tetiklenir.
-      -	EnumValues : SourceType enum seçildiği zaman. EnumValues’de hangi değerler yazıldı ise sadece onlar gösterilir. Boş geçilirse tüm değerler gösterilir. Değerler integer ve araya noktalı virgül ile yazılır.
-      -	Text : SourceType TextAndValue seçildiği zaman comboya yazılacak text değerler noktalı virgül ile yazılır.
-      -	Value : SourceType TextAndValue seçildiği zaman comboya yazılacak value  değerler noktalı virgül ile yazılır.
+  *	ComboEdit, ListEdit, RadioButtonList
+    -	SourceType : Değerler Enum, TextAndValue, ObjectCollection olabilir. Zorunludur. 
+    -	Source : Enum için enum değer, TextAndValue için boş, ObjectCollection için collection name olmalıdır. Zorunludur.
+    -	Filter :  ObjectCollection için filtrelemede kullanılır.
+    -	FilterValues :  ObjectCollection için filtrelemede kullanılır.
+    -	OrderByProperty : Sıralama için kullanılır.
+    -	TextProperty : ObjectCollection için combo’da gözükecek text property’dir.
+    -	ValueProperty : ObjectCollection için combo’da gözükecek value property’dir.
+    -	RelatedProperty : Burada bağlı olan başka combobox ve listbox’ın fieldname’i yazılır. Bağlı combo değiştiği zaman bu combo tetiklenir.
+    -	EnumValues : SourceType enum seçildiği zaman. EnumValues’de hangi değerler yazıldı ise sadece onlar gösterilir. Boş geçilirse tüm değerler gösterilir. Değerler integer ve araya noktalı virgül ile yazılır.
+    -	Text : SourceType TextAndValue seçildiği zaman comboya yazılacak text değerler noktalı virgül ile yazılır.
+    -	Value : SourceType TextAndValue seçildiği zaman comboya yazılacak value  değerler noktalı virgül ile yazılır.
 
-    *	ButtonEdit
-      •	SourceType : Değerler Command olabilir. Zorunludur.  
-      •	Source : Komut adı olmalıdır. Zorunludur.
-      •	SourceNumber : Birden fazla datasource bağlandığı zaman 00 dan başlayarak numara verilir.
-      •	SourceKeyValue : Birden fazla datasource bağlandığı zaman hangi datasource kullanacağını RelatedProperty deki controlun değerini okuyarak, burda yazan değerle karşılaştırarak karar verir.
-      •	Filter :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-      •	FilterValues :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-      •	OrderByProperty : Sıralama için kullanılır.
-      •	ReturnProperties : Açılan object’deki geri dönecek property’ler noktalı virgül ile yazılır.
-      •	ReturnedProperties : Açılan object’deki geri dönecek property’ler hangi controllere set edilecek ise noktalı virgül ile yazılır.
-      •	ListPropertyName : 1 ise tek seçim 2 ise çoklu seçim ekranı açar.
-      •	CustomOpenJs :Ekran açılmadan önce çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
-      •	CustomReturnJs :Seçim yapıldıktan sonra çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
-      •	RelatedProperty : Birden fazla datasource verileceği zaman datasource’un bağlı olduğu kontrolün adı yazılır. 
+  *	ButtonEdit
+    •	SourceType : Değerler Command olabilir. Zorunludur.  
+    •	Source : Komut adı olmalıdır. Zorunludur.
+    •	SourceNumber : Birden fazla datasource bağlandığı zaman 00 dan başlayarak numara verilir.
+    •	SourceKeyValue : Birden fazla datasource bağlandığı zaman hangi datasource kullanacağını RelatedProperty deki controlun değerini okuyarak, burda yazan değerle karşılaştırarak karar verir.
+    •	Filter :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+    •	FilterValues :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+    •	OrderByProperty : Sıralama için kullanılır.
+    •	ReturnProperties : Açılan object’deki geri dönecek property’ler noktalı virgül ile yazılır.
+    •	ReturnedProperties : Açılan object’deki geri dönecek property’ler hangi controllere set edilecek ise noktalı virgül ile yazılır.
+    •	ListPropertyName : 1 ise tek seçim 2 ise çoklu seçim ekranı açar.
+    •	CustomOpenJs :Ekran açılmadan önce çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
+    •	CustomReturnJs :Seçim yapıldıktan sonra çalışacak javascript fonksiyondur. Ayrıntısı ayrı yazılmıştır.
+    •	RelatedProperty : Birden fazla datasource verileceği zaman datasource’un bağlı olduğu kontrolün adı yazılır. 
 
 
-    *	GridEdit
-      •	SourceType : Objectcollection sabiti olmalıdır.
-      •	Source : Objectcollection adı olmalıdır.
-      •	Filter :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-      •	FilterValues :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
-      •	CloseDetailCallback : Seçilen satır değiştiği zaman bu gride bağlı detayların callback’ı çağrılmaz.
-      •	CloseAutoNew : Grid otomatik yeni modunda açılmamasını sağlar.
-      •	CopyDetailGrid : Grid copy yapıldığı zaman buna bağlı hangi gridlerinden kopyalanması isteniyor ise arada noktalı virgül koyularak grid adları yazılır.
-      •	IgnoreUpdateProperty : Grid update edilince bu property’ler update edilmez. Noktalı virgül ile yazılırlar.
-      •	FirstExcelColumnList : Gridün üzerinde excelden yapıştır yapıldığı zaman hangi alanların önce işlem görmesini istiyorsanız. Bu property’ler noktalı virgül ile ayrılarak yazılır.
-    
-    *	ChartControl
-      •	View : Değerler devexpress’in view tipleridir.  
+  *	GridEdit
+    •	SourceType : Objectcollection sabiti olmalıdır.
+    •	Source : Objectcollection adı olmalıdır.
+    •	Filter :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+    •	FilterValues :  Filtrelemede kullanılır. Ayrıntısı ayrıca açıklanmıştır.
+    •	CloseDetailCallback : Seçilen satır değiştiği zaman bu gride bağlı detayların callback’ı çağrılmaz.
+    •	CloseAutoNew : Grid otomatik yeni modunda açılmamasını sağlar.
+    •	CopyDetailGrid : Grid copy yapıldığı zaman buna bağlı hangi gridlerinden kopyalanması isteniyor ise arada noktalı virgül koyularak grid adları yazılır.
+    •	IgnoreUpdateProperty : Grid update edilince bu property’ler update edilmez. Noktalı virgül ile yazılırlar.
+    •	FirstExcelColumnList : Gridün üzerinde excelden yapıştır yapıldığı zaman hangi alanların önce işlem görmesini istiyorsanız. Bu property’ler noktalı virgül ile ayrılarak yazılır.
+  
+  *	ChartControl
+    •	View : Değerler devexpress’in view tipleridir.  
 
 XV.	ClientSideEvents : Kontrole client side event ekleme yapmak için kullanılır. Devexpress’in eventları kullanılır. Client Side eventları görmek için devexpress’in help’inde arattırma yapmak için aspx’den sonra client yazınız. Örnek AspxClientTextBox gibi…. 
 En çok kullanılan eventlar aşağıdadır.

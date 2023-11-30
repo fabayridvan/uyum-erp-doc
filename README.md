@@ -1192,3 +1192,6 @@ Liste ekranına tanımlı bir filter xml dosyası var ise onun en altına tanım
     </AfterPageLoad>
   </PageLoadEvents>
   ```
+
+## MENÜ KLASÖR Ekleme
+Klasör Ekleme Komut Tanım ekranından komut adını cmd prefixi ile başlatıp sabit bir komut yazmak gerekiyor.

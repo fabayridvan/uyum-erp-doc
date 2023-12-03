@@ -1195,3 +1195,6 @@ Liste ekranına tanımlı bir filter xml dosyası var ise onun en altına tanım
 
 ## MENÜ KLASÖR Ekleme
 Klasör Ekleme Komut Tanım ekranından komut adını cmd prefixi ile başlatıp sabit bir komut yazmak gerekiyor.
+
+## TIPS:
+* Detay gridinde width ayarı yapabilmek adına her kolona ayrı ayrı ```xml  ServerAttribute="Width=200"  ``` attribute u eklenebilir. Bu sayede istenilen genişlik elde edilebilir.

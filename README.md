@@ -1,4 +1,4 @@
-#UYUM FRAMEWORK TEKNİK DÖKÜMAN 
+# UYUM FRAMEWORK TEKNİK DÖKÜMAN 
 ## UYUM FRAMEWORK’ÜN GENEL YAPISI NASILDIR?
 
 Uyum Framework’te veritabanı işlemleri objeler üzerinden yapılmaktadır.  Ekran tasarımları XML ile yapılmaktadır. Standart ekranlarda her bir ekrana karşılık gelen bir obje vardır. Bir modüle ait objeler bir dll’in içinde toplanır. Module ait yazılan custom kodlar başka dll de yer alır. XML ve Javascriptler, Senfoni projesi içinde ilgili dizinde yer alır. Bir de komut yapısı vardır. Ekranlar açılırken parametre olarak komut geçilir.  Kullanıcının komuta yetkisi var ise ekran açılmaktadır. Devexpress kontrol’leri kullanılmıştır. 

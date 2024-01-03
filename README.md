@@ -1040,7 +1040,7 @@ Kart ekranlarına html kontrollerin tümünü kullanabilirsiniz. (image,span,inp
   Kullanılışı :
    XML dökümanında control tagının içerisine ControlType tipinine  "HtmlElement" caption tagınada Html elementleri yazılır.
 Önemli Not :
-html elementlerini yazarken küçüktür işareti yerine **&lt;** yazılması gerekmektedir.
+html elementlerini yazarken küçüktür işareti yerine ** &lt; ** yazılması gerekmektedir.
 
 <img src='images/homepageUyum.jpg' /> bunun yerine
 &lt;img src='images/homepageUyum.jpg' /> bu yazılmalıdır.

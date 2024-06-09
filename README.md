@@ -1198,3 +1198,14 @@ Klasör Ekleme Komut Tanım ekranından komut adını cmd prefixi ile başlatıp
 
 ## TIPS:
 * Detay gridinde width ayarı yapabilmek adına her kolona ayrı ayrı ```xml  ServerAttribute="Width=200"  ``` attribute u eklenebilir. Bu sayede istenilen genişlik elde edilebilir.
+
+## SQLCustom ile xml sarı alanı filterSQL yapılabilir.
+```xml
+<control FieldName="SalesPersonCode" ControlType="ButtonEdit" MaxLength="50" Caption="Satıcı" ServerAttribute="ValidationSettings-ValidationGroup=valid3" ControlRequired="true">
+  <DataSource Filter="SQL;FilterSQLZZYdTraAccId" FilterValues="@AccMId=123456"
+              ReturnProperties="Id;Name;Surname" ReturnedProperties="SalesPersonId;SalesPersonCode;SalesPersonDesc" Source="AppdUsersCollection.Show" ListPropertyName="Name" ></DataSource>
+</control>
+```
+
+```cs
+```
